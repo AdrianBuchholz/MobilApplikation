@@ -1,0 +1,1 @@
+Minimal MAUI client. Configure backend URL in MauiProgram.cs when needed.
