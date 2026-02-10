@@ -1,11 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Temporarily exclude the Windows TFM to avoid XAML compilation issues with the Windows App SDK tooling
+         (restore Windows target once the Windows workload/tooling is installed and configured). -->
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
     <UseMaui>true</UseMaui>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Allow the MAUI SDK to provide the platform assemblies for .NET 8 -->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <!-- Required on .NET 8 to include MAUI controls assemblies for XAML compilation -->
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
   </ItemGroup>
 </Project>

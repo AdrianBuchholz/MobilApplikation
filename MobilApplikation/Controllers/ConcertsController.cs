@@ -1,50 +1,32 @@
-﻿using MobilApplikation.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using MobilApplikation.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
+using MobilApplikation.Dtos;
+using System.Linq;
 
 namespace MobilApplikation.Controllers
 {
-    public class Program
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ConcertsController : ControllerBase
     {
-        public static void Main(string[] args)
+        private readonly IUnitOfWork _uow;
+        public ConcertsController(IUnitOfWork uow)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            _uow = uow;
+        }
 
-            // Add services to the container.
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-            builder.Services.AddScoped<IUnitOfWork, MobilApplikation.UnitOfWork.UnitOfWork>();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+        [HttpGet]
+        public async Task<IActionResult> GetConcerts()
+        {
+            var concerts = await _uow.Concerts.GetAllAsync();
+            var dtos = concerts.Select(c =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            app.MapControllers();
-
-            // Seed database
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<AppDbContext>();
-                DbSeeder.Seed(context);
-            }
-
-            app.Run();
+                // Count bookings across all performances for this concert
+                var perfIds = _uow.Performances.Query().Where(p => p.ConcertId == c.Id).Select(p => p.Id);
+                var bookingCount = _uow.Bookings.Query().Count(b => perfIds.Contains(b.PerformanceId));
+                return c.ToDto(bookingCount);
+            });
+            return Ok(dtos);
         }
     }
 }

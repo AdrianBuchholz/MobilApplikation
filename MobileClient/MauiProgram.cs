@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using CommunityToolkit.Mvvm.Messaging;
 using MobileClient.Services;
 using MobileClient.ViewModels;
 
@@ -17,12 +16,17 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
-        builder.Services.AddSingleton<IApiService, ApiService>(sp => new ApiService("https://localhost:5001"));
+        builder.Services.AddSingleton<IApiService>(sp => new ApiService("https://localhost:5001"));
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<ConcertViewModel>();
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
+
+        // Register pages for navigation (use transient so new VM/page created each navigation)
+        builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<ConcertPage>();
+
+        // ApiService registered above
+
+        // debug logging is provided by platform
         return builder.Build();
     }
 }
