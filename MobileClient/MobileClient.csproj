@@ -6,6 +6,7 @@
     <UseMaui>true</UseMaui>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">33.0</SupportedOSPlatformVersion>
     <!-- Allow the MAUI SDK to provide the platform assemblies for .NET 8 -->
   </PropertyGroup>
   <ItemGroup>

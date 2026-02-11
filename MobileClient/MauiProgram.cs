@@ -16,7 +16,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
-        builder.Services.AddSingleton<IApiService>(sp => new ApiService("https://localhost:5001"));
+        builder.Services.AddSingleton<IApiService>(sp => new ApiService("https://10.0.2.2:5001"));
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<ConcertViewModel>();
 
