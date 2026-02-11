@@ -24,7 +24,6 @@ namespace MobilApplikation.Data
                 context.Concerts.Add(concert);
                 context.SaveChanges();
             }
-
         }
     }
 }

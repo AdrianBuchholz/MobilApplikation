@@ -1,24 +1,34 @@
 using MobilApplikation.Data;
 using MobilApplikation.UnitOfWork;
-using Microsoft.EntityFrameworkCore; // <-- Add this using directive
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ? Configure DbContext with retry and proper SQL Server connection
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new Exception("DefaultConnection is not set in appsettings.json!");
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        connectionString,
+        sqlOptions => sqlOptions.EnableRetryOnFailure()
+    )
+);
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -26,17 +36,29 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-// Seed database
+// ? Ensure database is created and seeded safely
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    DbSeeder.Seed(context);
+
+    try
+    {
+        // Create database if it doesn't exist
+        context.Database.EnsureCreated();
+
+        // Seed the database
+        DbSeeder.Seed(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error during database creation/seeding:");
+        Console.WriteLine(ex);
+        throw;
+    }
 }
 
 app.Run();
