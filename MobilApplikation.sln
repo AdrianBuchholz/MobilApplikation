@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36915.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilApplikation", "MobilApplikation\MobilApplikation.csproj", "{2AB5BC9A-9DA7-4924-A878-440C86288072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient", "MobileClient\MobileClient.csproj", "{827B268C-96A7-4305-8985-7CB1FD6C60AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMauiApp", "MyMauiApp\MyMauiApp.csproj", "{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +29,19 @@ Global
 		{2AB5BC9A-9DA7-4924-A878-440C86288072}.Release|x64.Build.0 = Release|Any CPU
 		{2AB5BC9A-9DA7-4924-A878-440C86288072}.Release|x86.ActiveCfg = Release|Any CPU
 		{2AB5BC9A-9DA7-4924-A878-440C86288072}.Release|x86.Build.0 = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|x64.Build.0 = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Debug|x86.Build.0 = Debug|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|x64.ActiveCfg = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|x64.Build.0 = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|x86.ActiveCfg = Release|Any CPU
-		{827B268C-96A7-4305-8985-7CB1FD6C60AE}.Release|x86.Build.0 = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|x64.Build.0 = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Debug|x86.Build.0 = Debug|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|x64.ActiveCfg = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|x64.Build.0 = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|x86.ActiveCfg = Release|Any CPU
+		{22AD6B2D-E400-4ED4-A6BB-1CF26D663F83}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

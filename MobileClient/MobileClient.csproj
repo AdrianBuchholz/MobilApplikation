@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <!-- Temporarily exclude the Windows TFM to avoid XAML compilation issues with the Windows App SDK tooling
-         (restore Windows target once the Windows workload/tooling is installed and configured). -->
-    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-    <UseMaui>true</UseMaui>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">33.0</SupportedOSPlatformVersion>
-    <!-- Allow the MAUI SDK to provide the platform assemblies for .NET 8 -->
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <!-- Required on .NET 8 to include MAUI controls assemblies for XAML compilation -->
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
-  </ItemGroup>
+
+	<PropertyGroup>
+		<!-- Multi-target MAUI -->
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-windows10.0.22621.0</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<!-- Suppress implicit MAUI package warning -->
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Core MAUI -->
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+		<!-- MVVM Toolkit -->
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+	</ItemGroup>
+
+	<!-- Windows-specific packages -->
+	<ItemGroup Condition="'$(TargetFramework)'=='net9.0-windows10.0.22621.0'">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250909003" />
+	</ItemGroup>
+
 </Project>
