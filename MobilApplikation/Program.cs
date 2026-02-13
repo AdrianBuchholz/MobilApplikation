@@ -4,6 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Allow requests from any origin (for development only)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowEmulator", policy =>
+    {
+        policy.AllowAnyOrigin()  // Android emulator acts like a separate origin
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +47,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowEmulator");
 app.UseAuthorization();
 app.MapControllers();
 
@@ -47,11 +59,13 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Create database if it doesn't exist
+        // Force reset database for development
+        context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
 
-        // Seed the database
+        Console.WriteLine("Starting database seeding...");
         DbSeeder.Seed(context);
+        Console.WriteLine("Database seeding completed.");
     }
     catch (Exception ex)
     {
@@ -60,5 +74,6 @@ using (var scope = app.Services.CreateScope())
         throw;
     }
 }
+app.Urls.Add("http://0.0.0.0:5000");
 
 app.Run();

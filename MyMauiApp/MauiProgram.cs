@@ -16,17 +16,19 @@ namespace MyMauiApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            builder.Services.AddSingleton<IApiService>(sp => new ApiService("http://10.0.2.2:5252"));
+#if ANDROID
+            string apiUrl = "http://10.0.2.2:5000";
+#else
+        string apiUrl = "http://localhost:5000";
+#endif
+
+            builder.Services.AddSingleton<IApiService>(sp => new ApiService(apiUrl));
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<ConcertViewModel>();
 
-            // Register pages for navigation (use transient so new VM/page created each navigation)
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<ConcertPage>();
 
-            // ApiService registered above
-
-            // debug logging is provided by platform
             return builder.Build();
         }
     }
