@@ -13,5 +13,6 @@ namespace MyMauiApp.Services
         Task<IEnumerable<PerformanceDto>> GetPerformancesAsync(int concertId);
         Task<BookingDto?> CreateBookingAsync(BookingDto booking);
         Task<bool> DeleteBookingAsync(int id);
+        Task<IEnumerable<BookingDto>> GetBookingsAsync();
     }
 }

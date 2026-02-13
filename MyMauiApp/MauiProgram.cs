@@ -26,6 +26,10 @@ namespace MyMauiApp
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<ConcertViewModel>();
 
+            // register bookings page + vm
+            builder.Services.AddTransient<BookingsViewModel>();
+            builder.Services.AddTransient<BookingsPage>();
+
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<ConcertPage>();
 

@@ -1,8 +1,8 @@
-﻿using MyMauiApp.Models;
+MyMauiApp\Services\ApiService.cs
+using MyMauiApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -17,12 +17,10 @@ namespace MyMauiApp.Services
         }
 
         public async Task<IEnumerable<ConcertDto>> GetConcertsAsync() =>
-            await _http.GetFromJsonAsync<IEnumerable<ConcertDto>>("/api/concerts")
-            ?? Enumerable.Empty<ConcertDto>();
+            await _http.GetFromJsonAsync<IEnumerable<ConcertDto>>("/api/concerts") ?? Enumerable.Empty<ConcertDto>();
 
         public async Task<IEnumerable<PerformanceDto>> GetPerformancesAsync(int concertId) =>
-            await _http.GetFromJsonAsync<IEnumerable<PerformanceDto>>($"/api/performances/{concertId}")
-            ?? Enumerable.Empty<PerformanceDto>();
+            await _http.GetFromJsonAsync<IEnumerable<PerformanceDto>>($"/api/performances/{concertId}") ?? Enumerable.Empty<PerformanceDto>();
 
         public async Task<BookingDto?> CreateBookingAsync(BookingDto booking)
         {
@@ -37,7 +35,6 @@ namespace MyMauiApp.Services
         }
 
         public async Task<IEnumerable<BookingDto>> GetBookingsAsync() =>
-            await _http.GetFromJsonAsync<IEnumerable<BookingDto>>("/api/bookings")
-            ?? Enumerable.Empty<BookingDto>();
+            await _http.GetFromJsonAsync<IEnumerable<BookingDto>>("/api/bookings") ?? Enumerable.Empty<BookingDto>();
     }
 }

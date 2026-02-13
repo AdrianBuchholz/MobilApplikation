@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MobilApplikation.Dtos;
 using MobilApplikation.Models;
 using MobilApplikation.UnitOfWork;
+using System.Linq;
 
 namespace MobilApplikation.Controllers
 {
@@ -15,6 +16,15 @@ namespace MobilApplikation.Controllers
         {
             _uow = uow;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBookings()
+        {
+            var bookings = await _uow.Bookings.GetAllAsync();
+            var dtos = bookings.Select(b => b.ToDto());
+            return Ok(dtos);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBooking(BookingDto bookingDto)
         {
@@ -38,8 +48,8 @@ namespace MobilApplikation.Controllers
             await _uow.Bookings.AddAsync(booking);
             await _uow.SaveAsync();
             return Ok(booking.ToDto());
-
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
